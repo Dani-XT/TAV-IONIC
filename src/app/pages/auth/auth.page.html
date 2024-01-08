@@ -1,0 +1,52 @@
+<app-header color="warning" title="AUTH" subtitle="A D M I N"></app-header>
+
+<ion-content>
+    <div class="d-flex-center">
+        <form class="auth-form">
+            <app-custom-input
+                icon="mail-outline"
+                label="Email"
+                placeholder="Ingrese su correo..."
+                type="email">
+            </app-custom-input>
+
+            <app-custom-input
+                label="Contraseña"
+                placeholder="Ingrese su contraseña..."
+                type="password"
+                icon="lock-closed-outline">
+            </app-custom-input>
+
+            <p routerLink="forgot-password" class="ion-text-end">¿Olvido su contraseña?</p>
+            
+            <ion-button 
+                expand="block" 
+                mode="ios" 
+                class="submit" 
+                type="submit">Ingresar
+                
+                <ion-icon 
+                    slot="end" 
+                    name="log-in-outline">
+                </ion-icon>
+              
+            </ion-button>
+        
+            <ion-button 
+                class="ion-margin-top" 
+                routerLink="sign-up" 
+                expand="block" 
+                mode="ios" 
+                fill="outline">Registrate
+                
+                <ion-icon 
+                    slot="end" 
+                    name="person-add-outline">
+                </ion-icon>
+              
+            </ion-button>
+            
+        </form>
+    </div>
+</ion-content>
+
