@@ -1,7 +1,26 @@
-<app-header title="Not Found" color="warning"></app-header>
+<app-header title="Error" subtitle="Not Found" color="warning"></app-header>
 <ion-content>
-  <div class="d-flex-center ion-text-center">
-    <ion-title>Page not Found</ion-title>
+
+  <div class="d-flex-center ion-text-center custom-not-found">
+
+    <ion-icon name="sad" class="icon-error"></ion-icon>
+    <strong class="title-error">404</strong>
+    <ion-title class="description-error">Page not Found</ion-title>
+
+    <ion-button 
+                class="ion-margin-top custom-button" 
+                routerLink="/auth"
+                expand="block" 
+                mode="ios"
+                fill="outline">Volver a Inicio
+                
+                <ion-icon 
+                    slot="end"
+                    name="person-add-outline">
+                </ion-icon>
+              
+            </ion-button>
+
   </div>
 
 </ion-content>

@@ -17,13 +17,16 @@
                 icon="lock-closed-outline">
             </app-custom-input>
 
-            <p routerLink="forgot-password" class="ion-text-end">¿Olvido su contraseña?</p>
+            <a class="custom-link">
+                <p routerLink="forgot-password">¿Olvido su contraseña?</p>
+            </a>
             
             <ion-button 
                 expand="block" 
                 mode="ios" 
                 class="submit" 
-                type="submit">Ingresar
+                type="submit"
+                color="warning">Ingresar
                 
                 <ion-icon 
                     slot="end" 
@@ -36,7 +39,7 @@
                 class="ion-margin-top" 
                 routerLink="sign-up" 
                 expand="block" 
-                mode="ios" 
+                mode="ios"
                 fill="outline">Registrate
                 
                 <ion-icon 

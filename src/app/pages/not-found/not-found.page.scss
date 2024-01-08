@@ -1,0 +1,21 @@
+.custom-not-found {
+    padding: 3rem;
+    flex-direction: column;
+}
+
+.icon-error {
+    font-size: 10rem;
+}
+
+.title-error {
+    font-size: 5rem;
+}
+
+.description-error {
+    font-size: 1.1rem;
+}
+
+.custom-button {
+    --border-color: rgb(150, 147, 147);
+    --color: gray;
+}
