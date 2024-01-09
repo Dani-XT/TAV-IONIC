@@ -1,6 +1,8 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from './../../../shared/shared.module';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -13,7 +15,8 @@ import { ForgotPasswordPage } from './forgot-password.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ForgotPasswordPageRoutingModule
+    ForgotPasswordPageRoutingModule,
+    SharedModule
   ],
   declarations: [ForgotPasswordPage]
 })

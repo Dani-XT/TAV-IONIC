@@ -6,9 +6,10 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent  implements OnInit {
-  @Input() color : string = "primary";
+  @Input() color : string = "warning";
   @Input() title! : string;
   @Input() subtitle! : string;
+  @Input() backButton!: string;
   constructor() { }
 
   ngOnInit() {}

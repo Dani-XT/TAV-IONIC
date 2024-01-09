@@ -1,0 +1,18 @@
+<ion-button
+  expand="block"
+  [color]="color"
+  [class]="class"
+  [mode]="mode"
+  [type]="type"
+  [fill]="fill">
+  
+  {{textButton}}
+
+  <ion-icon 
+    slot="end"
+    color="primary"
+    *ngIf="icon"
+    [name]="icon">
+  </ion-icon>
+
+</ion-button>
