@@ -1,0 +1,24 @@
+.custom-add-task {
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.camera {
+    background-color: white;
+    height: 10rem;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5%;
+    border: 1px solid #e0e0e0;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.custom-camera {
+    font-size: 5rem;
+}
