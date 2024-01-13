@@ -3,14 +3,27 @@
 <ion-content>
   
   <div class="custom-add-task">
-    <form class="auth-form">
+    <form [formGroup]="form" class="auth-form">
+      
       <ion-text color="primary">Nueva tarea</ion-text>
+      
       <app-custom-input
         type="text"
         icon="person-outline"
-        label="Persona asignada"
-        placeholder="Ingrese persona asignada">
+        label="Titulo Tarea"
+        placeholder="Ingrese titulo de la tarea"
+        [control]="form.controls.titulo">
       </app-custom-input>
+
+      <app-custom-input
+        type="textarea"
+        icon="hammer-outline"
+        label="Descripcion tarea"
+        placeholder="Ingrese descripcion de la tarea"
+        [control]="form.controls.descripcion">
+      </app-custom-input>
+
+      <ion-toggle [disabled]="true">¿Tarea completada?</ion-toggle>
 
       <app-custom-input
         type="text"
@@ -19,17 +32,16 @@
         placeholder="Ingrese el titulo de trabajo">
       </app-custom-input>
 
-      <app-custom-input
-        type="textarea"
-        icon="hammer-outline"
-        label="Descripcion tarea"
-        placeholder="Ingrese descripcion de la tarea">
-      </app-custom-input>
+      <ion-item mode="ios">
+        <ion-select label="Estado" label-placement="floating">
+          <ion-select-option value="apple">Apple</ion-select-option>
+          <ion-select-option value="banana">Banana</ion-select-option>
+          <ion-select-option value="orange">Orange</ion-select-option>
+        </ion-select>
+      </ion-item>
+      
 
-      <div class="camera">
-        <ion-icon name="camera-outline" color="primary" class="custom-camera"></ion-icon>
-        <ion-text color="primary">Tomar fotografia</ion-text>
-      </div>
+      
     </form>
   </div>
 

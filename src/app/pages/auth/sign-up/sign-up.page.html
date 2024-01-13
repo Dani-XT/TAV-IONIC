@@ -3,30 +3,45 @@
 
 <ion-content>
   <div class="d-flex-center">
-    <form class="auth-form">
+    <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
 
       <app-custom-input 
         icon="person-outline"
         label="Nombre"
         placeholder="Ingrese su nombre"
-        type="text">
+        type="text"
+        [control]="form.controls.name">
       </app-custom-input>
+      <div class="validators" *ngIf="form.controls.name.errors && form.controls.name.touched">
+        <div *ngIf="form.controls.name.errors?.['required']">El nombre es requerido</div>
+      </div>
+      
 
       <app-custom-input
         icon="mail-outline"
         label="Email"
         placeholder="Ingrese su correo..."
-        type="email">
+        type="email"
+        [control]="form.controls.email">
       </app-custom-input>
+      <div class="validators" *ngIf="form.controls.email.errors && form.controls.email.touched">
+        <div *ngIf="form.controls.email.errors?.['required']">El correo es requerido</div>
+        <div *ngIf="form.controls.email.errors?.['email']">Ingrese un correo valido</div>
+      </div>
 
       <app-custom-input
         label="Contraseña"
         placeholder="Ingrese su contraseña..."
         type="password"
-        icon="lock-closed-outline">
+        icon="lock-closed-outline"
+        [control]="form.controls.password">
       </app-custom-input>
+      <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.touched">
+        <div *ngIf="form.controls.password.errors?.['required']">La contraseña es requerida</div>
+        <div *ngIf="form.controls.password.errors?.['minlength']">La contraseñadebe tener al menos 4 caracteres.</div>
+      </div>
 
-      <ion-button expand="block" mode="ios" class="submit" type="submit">
+      <ion-button expand="block" mode="ios" class="submit" type="submit" [disabled]="form.invalid">
         Registrate
         <ion-icon slot="end" name="log-in-outline"></ion-icon>
       </ion-button>

@@ -1,20 +1,22 @@
 <app-header subtitle="A D M I N"></app-header>
 
 <ion-content>
-    <div class="d-flex-center">
+    <div [formGroup]="form" class="d-flex-center" (ngSubmit)="submit()" (keypress.enter)="submit()">
         <form class="auth-form">
             <app-custom-input
                 icon="mail-outline"
                 label="Email"
                 placeholder="Ingrese su correo..."
-                type="email">
+                type="email"
+                [control]="form.controls.email">
             </app-custom-input>
 
             <app-custom-input
                 label="Contraseña"
                 placeholder="Ingrese su contraseña..."
                 type="password"
-                icon="lock-closed-outline">
+                icon="lock-closed-outline"
+                [control]="form.controls.password">
             </app-custom-input>
 
             <a class="custom-link">
@@ -27,7 +29,7 @@
                 class="submit" 
                 type="submit"
                 color="warning"
-                routerLink="/main/home">Ingresar
+                [disabled]="form.invalid">Ingresar
                 
                 
                 <ion-icon 
@@ -42,7 +44,8 @@
                 routerLink="sign-up"
                 expand="block"
                 mode="ios"
-                fill="outline">Registrate
+                fill="outline"
+                >Registrate
                 
                 <ion-icon 
                     slot="end" 

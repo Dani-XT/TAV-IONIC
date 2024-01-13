@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { timeout } from 'rxjs';
 import { UtilsService } from 'src/app/services/utils.service';
+import { ApiService } from './../../services/api.service';
 
 @Component({
   selector: 'app-auth',
@@ -15,6 +15,7 @@ export class AuthPage implements OnInit {
   });
 
   utilsSvc = inject(UtilsService);
+  apiSvc = inject(ApiService);
 
   constructor() { }
 
@@ -23,7 +24,30 @@ export class AuthPage implements OnInit {
 
   async submit(){
     if(this.form.valid){
-      console.log(this.form.value);
+      const email = this.form.value.email as string;
+      const password = this.form.value.password as string;
+      
+      this.apiSvc.loginUser(email, password)
+      .subscribe(
+        response => {
+          this.utilsSvc.saveInLocalStorage('user', response);
+          this.utilsSvc.routerLink('/main/home');
+          console.log('User autenthicated successfully:', response);
+        },
+        error => {
+          console.error('Error auth user:', error);
+          this.utilsSvc.presentToast({
+            message: "Error al ingresar",
+            duration: 1500,
+            color: "danger",
+            position: "bottom",
+            icon: "checkmark-circle-outline"
+          });
+        }
+      );
+      
     }
   }
 }
+
+
