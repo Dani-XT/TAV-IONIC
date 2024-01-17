@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UtilsService } from 'src/app/services/utils.service';
-import { ApiService } from 'src/app/services/api.services'
+import { ApiService } from './../../services/api.service';
 
 @Component({
   selector: 'app-auth',
@@ -15,6 +15,7 @@ export class AuthPage implements OnInit {
   });
 
   utilsSvc = inject(UtilsService);
+  apiSvc = inject(ApiService);
 
   constructor() { }
 
@@ -34,10 +35,19 @@ export class AuthPage implements OnInit {
           console.log('User autenthicated successfully:', response);
         },
         error => {
-          console.error('Error creating user:', error);
+          console.error('Error auth user:', error);
+          this.utilsSvc.presentToast({
+            message: "Error al ingresar",
+            duration: 1500,
+            color: "danger",
+            position: "bottom",
+            icon: "checkmark-circle-outline"
+          });
         }
       );
       
     }
   }
 }
+
+
