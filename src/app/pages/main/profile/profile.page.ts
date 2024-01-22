@@ -19,15 +19,38 @@ export class ProfilePage implements OnInit {
 
   constructor() { }
 
-  nombre : string = "Nombre Usuario";
-  correo : string = "Correo Usuario";
-
   ngOnInit() {
   }
 
+  ionViewWillEnter() {
+    this.getUser();
+  }
 
   getUser() {
     return this.user = this.utilsSvc.getFromLocalStorage('user');
+    
+
+    
+  }
+
+  signOut() {
+    this.utilsSvc.presentAlert ({
+      header: 'Cerrar sesion',
+      message: '¿Quieres cerrar sesion?',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+        }, {
+          text: 'Si, cerrar',
+          handler: () => {
+            this.apiSvc.signOut();
+          }
+        }
+
+      ]
+    });
   }
 
 }
