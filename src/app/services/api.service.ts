@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { UtilsService } from './utils.service';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -10,7 +11,10 @@ export class ApiService {
   private apiUrl = environment.urlBase;
   private endpoint = environment.endpoints.users;
 
-  constructor(private http: HttpClient) { }
+
+
+  constructor(private http: HttpClient,
+              private utilsSvc: UtilsService) { }
 
   createUser(user: User) {
     const url = `${this.apiUrl}/${this.endpoint}/register`;
@@ -38,4 +42,16 @@ export class ApiService {
 
     return request;
   }
+
+  logOut() {
+      
+  }
+
+  authUser(user: User) { 
+    user1: this.utilsSvc.getFromLocalStorage('user');
+    
+
+    }
 }
+
+
