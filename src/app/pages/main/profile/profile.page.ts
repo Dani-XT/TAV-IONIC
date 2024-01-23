@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { UtilsService } from 'src/app/services/utils.service';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,7 +11,14 @@ export class ProfilePage implements OnInit {
 
   constructor() { }
 
+  apiSvc = inject(ApiService);
+  utilsSvc = inject(UtilsService);
+
   ngOnInit() {
+  }
+
+  submit() {
+    
   }
 
 }
