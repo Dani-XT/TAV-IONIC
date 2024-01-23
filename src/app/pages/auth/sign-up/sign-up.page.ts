@@ -2,7 +2,8 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../../services/api.service'; 
 import { UtilsService } from 'src/app/services/utils.service';
-import { User } from 'src/app/models/user.model'; 
+import { User } from 'src/app/models/user.model';
+import { UserController } from 'src/app/utils/user-controller';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,7 +12,7 @@ import { User } from 'src/app/models/user.model';
 })
 export class SignUpPage implements OnInit {
   
-  apiService = inject(ApiService);
+  apiSvc = inject(ApiService);
   utilsSvc = inject(UtilsService);
 
   form = new FormGroup({
@@ -26,10 +27,9 @@ export class SignUpPage implements OnInit {
 
   submit() {
     if (this.form.valid) {
+      const tempUser = this.form.value
 
-      const tempUser = this.form.value;
-
-      this.apiService.createUser(this.form.value as User)
+      this.apiSvc.createUser(tempUser as User)
       .subscribe(
         response => {
           this.utilsSvc.presentToast({
@@ -41,15 +41,29 @@ export class SignUpPage implements OnInit {
           });
           this.utilsSvc.routerLink('/main/home');
         },
-        error => {
-          console.log('Error al crear usuario', error);
-          this.utilsSvc.presentToast({
-            message: "Error al crear usuario",
-            duration: 1500,
-            color: "danger",
-            position: "bottom",
-            icon: "checkmark-circle-outline"
-          });
+        async error => {
+          const flags =  await this.createTempUser();
+          if (flags) {
+            console.log("true");
+            this.utilsSvc.saveInLocalStorage('user', tempUser);
+            this.utilsSvc.presentToast({
+              message: "Usuario creado exitosamente",
+              duration: 1500,
+              color: "success",
+              position: "bottom",
+              icon: "checkmark-circle-outline"
+            });
+            this.utilsSvc.routerLink('/main/home');
+          } else {
+            console.log('Error al crear usuario', error);
+            this.utilsSvc.presentToast({
+              message: "Error al crear usuario",
+              duration: 1500,
+              color: "danger",
+              position: "bottom",
+              icon: "checkmark-circle-outline"
+            });
+          }
         }
       );
     } else {
@@ -63,6 +77,31 @@ export class SignUpPage implements OnInit {
       });
       
     }
+  }
+
+  createTempUser(): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.utilsSvc.presentAlert ({
+        header: 'Usuario Temporal',
+        message: 'Tenemos problemas con el servidor ¿Quieres crear un usuario temporal?',
+        mode: 'ios',
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            handler: () => {
+              resolve(false);
+            },
+          }, {
+            text: 'Aceptar',
+            handler: () => {
+              resolve(true);
+            },
+          },
+
+        ],
+      });
+    });
   }
 
 }

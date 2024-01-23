@@ -26,7 +26,7 @@ export class AuthPage implements OnInit {
     if(this.form.valid){
       const email = this.form.value.email as string;
       const password = this.form.value.password as string;
-      const tempUser = this.form.value;
+      const user = this.utilsSvc.getFromLocalStorage('user');
       
       this.apiSvc.loginUser(email, password)
       .subscribe(
@@ -35,14 +35,19 @@ export class AuthPage implements OnInit {
           console.log('User autenthicated successfully:', response);
         },
         error => {
-          console.error('Error auth user:', error);
-          this.utilsSvc.presentToast({
-            message: "Error al ingresar",
-            duration: 1500,
-            color: "danger",
-            position: "bottom",
-            icon: "checkmark-circle-outline"
-          });
+          if (user.email === email && user.password === password) {
+            console.log('User autenthicated successfully:');
+            this.utilsSvc.routerLink('/main/home');
+          } else {
+            console.error('Error auth user:', error);
+            this.utilsSvc.presentToast({
+              message: "Error al ingresar",
+              duration: 1500,
+              color: "danger",
+              position: "bottom",
+              icon: "checkmark-circle-outline"
+            });
+          }
         }
       );
 

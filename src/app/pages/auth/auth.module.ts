@@ -9,6 +9,7 @@ import { AuthPageRoutingModule } from './auth-routing.module';
 
 import { AuthPage } from './auth.page';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { UserController } from 'src/app/utils/user-controller';
 
 @NgModule({
   imports: [

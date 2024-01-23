@@ -14,11 +14,11 @@ export class ApiService {
   private apiUrl = environment.urlBase;
   private endpoint = environment.endpoints.users;
 
-
-
   constructor(private http: HttpClient,
               private utilsSvc: UtilsService) { }
 
+
+  /*TODO: USUARIOS */
   createUser(user: User) {
     const url = `${this.apiUrl}/${this.endpoint}/register`;
     const headers = new HttpHeaders().set('x-tenant-id', '65a08d5f8dbd709da49b2fdb');
@@ -66,6 +66,8 @@ export class ApiService {
     this.utilsSvc.removeFromLocalStorage('user');
   }
 
+
+  /*TODO: TASK */
   createTask(task: Task) { 
     const url = `${this.apiUrl}/${this.endpoint}/createTask`;
     const headers = new HttpHeaders().set('x-tenant-id', '65a08d5f8dbd709da49b2fdb');
@@ -98,10 +100,6 @@ export class ApiService {
     const request = this.http.post(url, body, { headers });
     return request;
   }
-
-  // authUser(user: User) { 
-  //   user1: this.utilsSvc.getFromLocalStorage('user');
-  // }
 
   getTask(task: Task) {
     const url = `${this.apiUrl}/${this.endpoint}/getAllTask`;

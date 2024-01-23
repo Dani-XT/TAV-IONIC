@@ -18,9 +18,9 @@ export class AddUpdateTaskComponent  implements OnInit {
 
   form = new FormGroup({
     _id: new FormControl(''),
-    title: new FormControl('', [Validators.required, Validators.minLength(4)]),
-    description: new FormControl('', [Validators.required, Validators.minLength(4)]),
-    activities: new FormControl([], [Validators.required, Validators.minLength(1)]),
+    title: new FormControl(''),
+    description: new FormControl(''),
+    activities: new FormControl([]),
   })
 
   constructor( ) { }
@@ -38,6 +38,7 @@ export class AddUpdateTaskComponent  implements OnInit {
   }
 
   submit() {
+    console.log(this.form.value.activities)
     if(this.form.valid){
       if(this.task){
         this.updateTask();
@@ -45,6 +46,8 @@ export class AddUpdateTaskComponent  implements OnInit {
         this.createTask();
       }
     }
+
+    
   }
 
   createTask(){
