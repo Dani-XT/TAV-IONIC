@@ -4,17 +4,16 @@
     <div class="content ion-text-center">
   
         <ion-icon class="avatar" name="person-circle-outline"></ion-icon>
-        <h2>Nombre Usuario</h2>
-        <div>Correo Usuario</div>
+        <h2>{{user.name}}</h2>
+        <div>{{user.email}}</div>
     
     </div>
 
+    <ion-button (click)="signOut()" shape="round">
+        Cerrar Sesión
+        <ion-icon slot="end" name="log-out-outline"></ion-icon>
+    </ion-button>
 
-    <ion-footer>
-        <ion-button (click)="submit()">
-            Cerrar Sesion
-        </ion-button>
-    </ion-footer>
 </ion-content>
 
 

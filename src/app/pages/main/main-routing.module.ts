@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     component: MainPage,
-    children: [   //Manda el tab a Home y a Profile
+    children: [
       {
         path: 'home',
         loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
@@ -19,6 +19,11 @@ const routes: Routes = [
       {
         path: 'profile',
         loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+      },
+      {
+        path: '',
+        redirectTo: '/main/home',
+        pathMatch: 'full'
       }
     ]
   },
