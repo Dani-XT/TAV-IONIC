@@ -10,29 +10,24 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class ProfilePage implements OnInit {
 
-
   user = {} as User;
-
 
   apiSvc = inject(ApiService);
   utilsSvc = inject(UtilsService);
 
   constructor() { }
 
-  apiSvc = inject(ApiService);
-  utilsSvc = inject(UtilsService);
-
   ngOnInit() {
   }
 
   ionViewWillEnter() {
     this.getUser();
+    console.log(this.user);
   }
 
   getUser() {
     return this.user = this.utilsSvc.getFromLocalStorage('user');
-    
-
+     
     
   }
 

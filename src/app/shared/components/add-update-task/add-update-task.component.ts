@@ -29,7 +29,7 @@ export class AddUpdateTaskComponent  implements OnInit {
   apiService = inject(ApiService);
 
   ngOnInit() {
-    this.user = this.utilsSvc.getFromLocalStorage('user');
+    // this.user = this.utilsSvc.getFromLocalStorage('user');
 
     if(this.task){
       this.form.setValue(this.task);

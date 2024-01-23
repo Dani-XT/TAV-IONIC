@@ -53,7 +53,7 @@ export class HomePage implements OnInit {
   }
 
   getTasks(){
-    let user: User = this.utilsSvc.getFromLocalStorage('user')
+    // const user: User = this.utilsSvc.getFromLocalStorage('user')
 
 
     // let path = `users/${user.uid}`;

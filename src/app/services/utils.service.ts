@@ -59,8 +59,7 @@ export class UtilsService {
 
   getFromLocalStorage(key: string){
     return JSON.parse(localStorage.getItem(key));
-  }
-  
+  } 
 
   removeFromLocalStorage(key: string) {
     localStorage.removeItem(key);

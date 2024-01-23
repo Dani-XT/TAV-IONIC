@@ -28,7 +28,6 @@ export class SignUpPage implements OnInit {
     if (this.form.valid) {
 
       const tempUser = this.form.value;
-      this.utilsSvc.saveInLocalStorage('user', tempUser);
 
       this.apiService.createUser(this.form.value as User)
       .subscribe(
@@ -40,32 +39,17 @@ export class SignUpPage implements OnInit {
             position: "bottom",
             icon: "checkmark-circle-outline"
           });
-          this.utilsSvc.saveInLocalStorage('user', response);
           this.utilsSvc.routerLink('/main/home');
         },
         error => {
-          //TODO: Usuario creado en localstorage
-          if(tempUser) {
-            console.log('Usuario creado temporalmente');
-            this.utilsSvc.presentToast({
-              message: "Usuario creado temporalmente",
-              duration: 1500,
-              color: "warning",
-              position: "bottom",
-              icon: "checkmark-circle-outline"
-            });
-            this.utilsSvc.routerLink('/main/home');
-
-          } else {
-            console.log('Error al crear usuario', error);
-            this.utilsSvc.presentToast({
-              message: "Error al crear usuario",
-              duration: 1500,
-              color: "danger",
-              position: "bottom",
-              icon: "checkmark-circle-outline"
-            });
-          }
+          console.log('Error al crear usuario', error);
+          this.utilsSvc.presentToast({
+            message: "Error al crear usuario",
+            duration: 1500,
+            color: "danger",
+            position: "bottom",
+            icon: "checkmark-circle-outline"
+          });
         }
       );
     } else {

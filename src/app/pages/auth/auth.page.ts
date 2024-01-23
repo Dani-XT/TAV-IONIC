@@ -26,11 +26,11 @@ export class AuthPage implements OnInit {
     if(this.form.valid){
       const email = this.form.value.email as string;
       const password = this.form.value.password as string;
+      const tempUser = this.form.value;
       
       this.apiSvc.loginUser(email, password)
       .subscribe(
         response => {
-          this.utilsSvc.saveInLocalStorage('user', response);
           this.utilsSvc.routerLink('/main/home');
           console.log('User autenthicated successfully:', response);
         },
@@ -45,9 +45,10 @@ export class AuthPage implements OnInit {
           });
         }
       );
+
+      
       
     }
   }
 }
-
 

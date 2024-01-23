@@ -1,9 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UtilsService } from './utils.service';
 import { User } from '../models/user.model';
 import { Task } from '../models/task.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +29,11 @@ export class ApiService {
     };
 
     const request = this.http.post(url, body, { headers });
-    return request;
+    return request.pipe(
+      tap((response: any) => {
+        this.utilsSvc.saveInLocalStorage('user', response.user);
+      })
+    );
   }
 
   loginUser(email: string, password: string) {
@@ -38,7 +44,20 @@ export class ApiService {
       password
     };
     const request = this.http.post(url, body, { headers });
-    return request;
+    return request.pipe(
+      tap((response: any) => {
+        this.utilsSvc.saveInLocalStorage('user', response.user);
+      })
+    );
+  }
+
+  updateUser() {
+    const url = `${this.apiUrl}/${this.endpoint}/login`;
+    const headers = new HttpHeaders().set('x-tenant-id', '65a08d5f8dbd709da49b2fdb');
+    const body = {
+      
+    };
+    const request = this.http.post(url, body, { headers });
   }
 
   signOut() {
