@@ -26,7 +26,7 @@ export class AddUpdateTaskComponent  implements OnInit {
   constructor( ) { }
 
   utilsSvc = inject(UtilsService);
-  apiService = inject(ApiService);
+  apiSvc = inject(ApiService);
 
   ngOnInit() {
     if(this.task){
@@ -51,7 +51,7 @@ export class AddUpdateTaskComponent  implements OnInit {
     delete this.form.value._id;
 
     if(this.form.valid) {
-      this.apiService.createTask(this.form.value as Task)
+      this.apiSvc.createTask(this.form.value as Task)
       .subscribe(
         response => {
           this.utilsSvc.dismissModal({succes: true});
@@ -87,7 +87,7 @@ export class AddUpdateTaskComponent  implements OnInit {
     if(this.form.valid) {
 
       let taskId = this.task._id;
-      this.apiService.updateTask(this.form.value as Task, taskId)
+      this.apiSvc.updateTask(this.form.value as Task, taskId)
       .subscribe(
         response => {
           this.utilsSvc.dismissModal({succes: true});

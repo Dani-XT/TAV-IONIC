@@ -22,19 +22,65 @@ export class UpdateDelUserComponent  implements OnInit {
     password: new FormControl(''),
   })
 
-  utilsSvc = inject(UtilsService);
-  apiSvc = inject(ApiService);
 
   constructor() { }
 
-  ngOnInit() {}
+  utilsSvc = inject(UtilsService);
+  apiSvc = inject(ApiService);
 
-  submit() {
 
+  ngOnInit() {
+    this.form.setValue(this.user);
+    this.form.updateValueAndValidity();
   }
 
-  delete() {
-    
+  submit() {
+    if(this.form.valid) {
+      this.updateUser();
+    }
+  }
+
+  updateUser() {
+    this.utilsSvc.presentLoading();
+    if(this.form.valid) {
+
+      
+      this.apiSvc.updateUser(this.form.value as User)
+      .subscribe(
+        response => {
+          this.utilsSvc.dismissModal({succes: true});
+          this.utilsSvc.presentToast({
+            message: 'Usuario modificado exitosamente',
+            color: 'succes',
+            icon: 'checkmark-circle-outline',
+            duration: 1500
+          });
+          console.log("response")
+          this.utilsSvc.dismissLoading();
+        },
+        error => {
+          console.log(error);
+          this.utilsSvc.presentToast({
+            message: 'Error al modificar usuario',
+            color: 'danger',
+            icon: 'alert-circle-outline',
+            duration: 1500
+          });
+          console.log("error")
+          this.utilsSvc.dismissLoading();
+        }
+      )
+    }
+  }
+
+  deleteUser(user: User) {
+    this.utilsSvc.presentLoading();
+    this.apiSvc.deleteUser()
+    .subscribe(
+      response => {
+
+      }
+    )
   }
 
 }
