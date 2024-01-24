@@ -10,13 +10,15 @@ import { CustomButtonComponent } from './components/custom-button/custom-button.
 import { AddUpdateTaskComponent } from './components/add-update-task/add-update-task.component';
 
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { UpdateDelUserComponent } from './components/update-del-user/update-del-user.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     CustomInputComponent,
     CustomButtonComponent,
-    AddUpdateTaskComponent
+    AddUpdateTaskComponent,
+    UpdateDelUserComponent
   ],
   exports: [
     HeaderComponent,
@@ -24,6 +26,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     CustomButtonComponent,
     NgCircleProgressModule,
     AddUpdateTaskComponent,
+    UpdateDelUserComponent,
     ReactiveFormsModule
   ],
   imports: [

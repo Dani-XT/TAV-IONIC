@@ -1,9 +1,9 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
-import { User } from 'src/app/models/user.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 import { Activities, Task } from 'src/app/models/task.model';
 import { ApiService } from 'src/app/services/api.service';
 import { UtilsService } from 'src/app/services/utils.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ItemReorderEventDetail } from '@ionic/angular';
 
 @Component({
@@ -14,7 +14,7 @@ import { ItemReorderEventDetail } from '@ionic/angular';
 export class AddUpdateTaskComponent  implements OnInit {
 
   @Input() task: Task;
-  user = {} as User;
+  
 
   form = new FormGroup({
     _id: new FormControl(''),
@@ -29,8 +29,6 @@ export class AddUpdateTaskComponent  implements OnInit {
   apiService = inject(ApiService);
 
   ngOnInit() {
-    this.user = this.utilsSvc.getFromLocalStorage('user')
-
     if(this.task){
       this.form.setValue(this.task);
       this.form.updateValueAndValidity();

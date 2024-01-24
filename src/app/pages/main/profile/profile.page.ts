@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { User } from 'src/app/models/user.model';
+import { UpdateDelUserComponent } from 'src/app/shared/components/update-del-user/update-del-user.component';
 import { ApiService } from 'src/app/services/api.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -10,7 +11,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class ProfilePage implements OnInit {
 
-  user = {} as User;
+  user : User[] = [];
 
   apiSvc = inject(ApiService);
   utilsSvc = inject(UtilsService);
@@ -22,14 +23,45 @@ export class ProfilePage implements OnInit {
 
   ionViewWillEnter() {
     this.getUser();
-    console.log(this.user);
+  }
+
+  
+
+  async updateOrDelUser(user: User) {
+    let res = await this.utilsSvc.presentModal({
+      component: UpdateDelUserComponent,
+      componentProps: { user },
+      cssClass: 'update-del-user'
+    });
+
+    if (res && res.succes) {
+      this.getUser()
+    }
   }
 
   getUser() {
-    return this.user = this.utilsSvc.getFromLocalStorage('user');
-     
-    
+    let sub = this.apiSvc.getUser()
+    .subscribe({
+      next: (response: User[]) => {
+          console.log(response);
+          this.user = response;
+          sub.unsubscribe();
+      }
+    })
   }
+
+  deleteUser(user: User) {
+    this.utilsSvc.presentLoading();
+    this.apiSvc.deleteUser()
+    .subscribe(
+      response => {
+
+      }
+    )
+  }
+
+
+
 
   signOut() {
     this.utilsSvc.presentAlert ({
@@ -50,5 +82,4 @@ export class ProfilePage implements OnInit {
       ]
     });
   }
-
 }

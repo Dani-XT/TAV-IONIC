@@ -1,5 +1,4 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { User } from 'src/app/models/user.model';
 import { Task } from 'src/app/models/task.model';
 import { ApiService } from 'src/app/services/api.service';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -14,7 +13,7 @@ import { AddUpdateTaskComponent } from 'src/app/shared/components/add-update-tas
 export class HomePage implements OnInit {
 
   tasks: Task[] = [];
-  user = {} as User;
+
   loading: boolean = false;
 
 
@@ -29,12 +28,9 @@ export class HomePage implements OnInit {
 
   ionViewWillEnter() {
     this.getTasks()
-    this.getUser()
   }
 
-  getUser() {
-    return this.user = this.utilsSvc.getFromLocalStorage('user');
-  }
+
 
   getPercentage(task: Task){
     return this.utilsSvc.getPercentage(task);

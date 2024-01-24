@@ -52,13 +52,44 @@ export class ApiService {
     );
   }
 
-  updateUser() {
+  getUser() {
+    let token = this.utilsSvc.getFromLocalStorage('user-token')
+
     const url = `${this.apiUrl}/${this.endpointUser}/login`;
-    const headers = new HttpHeaders().set('x-tenant-id', '65a08d5f8dbd709da49b2fdb');
+    const headers = new HttpHeaders()
+      .set('x-tenant-id', '65a08d5f8dbd709da49b2fdb')
+      .set('Authorization', token);
+    
+    const request = this.http.get(url, { headers });
+    return request;
+  }
+
+  updateUser(user: User) {
+    let token = this.utilsSvc.getFromLocalStorage('user-token');
+    const url = `${this.apiUrl}/${this.endpointUser}/me`;
+    const headers = new HttpHeaders()
+      .set('x-tenant-id', '65a08d5f8dbd709da49b2fdb')
+      .set('Authorization', token);
+    
     const body = {
-      
-    };
-    const request = this.http.post(url, body, { headers });
+      name: user.name,
+      email: user.email,
+      password: user.password
+    }
+    
+    const request = this.http.patch(url, body, { headers });
+    return request;
+  }
+
+  deleteUser() {
+    let token = this.utilsSvc.getFromLocalStorage('user-token');
+    const url = `${this.apiUrl}/${this.endpointUser}/me`;
+    const headers = new HttpHeaders()
+      .set('x-tenant-id', '65a08d5f8dbd709da49b2fdb')
+      .set('Authorization', token);
+    
+      const request = this.http.delete(url, { headers });
+    return request;
   }
 
   signOut() {
@@ -102,10 +133,8 @@ export class ApiService {
     return request;
   }
 
-
   updateTask(task: Task, taskId: string) {
     const token = this.utilsSvc.getFromLocalStorage('user-token');
-    console.log(task._id);
     const url = `${this.apiUrl}/${this.endpointTask}/${taskId}`;
     const headers = new HttpHeaders()
       .set('x-tenant-id', '65a08d5f8dbd709da49b2fdb')
@@ -118,7 +147,6 @@ export class ApiService {
       activities: task.activities,
       owner: task.owner,
     };
-
     const request = this.http.patch(url, body, { headers });
     return request;
   }
