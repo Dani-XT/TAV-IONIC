@@ -55,7 +55,7 @@ export class ApiService {
   getUser() {
     let token = this.utilsSvc.getFromLocalStorage('user-token')
 
-    const url = `${this.apiUrl}/${this.endpointUser}/login`;
+    const url = `${this.apiUrl}/${this.endpointUser}/me`;
     const headers = new HttpHeaders()
       .set('x-tenant-id', '65a08d5f8dbd709da49b2fdb')
       .set('Authorization', token);
