@@ -12,7 +12,8 @@ import { Task } from '../models/task.model';
 })
 export class ApiService {
   private apiUrl = environment.urlBase;
-  private endpoint = environment.endpoints.users;
+  private endpointUser = environment.endpoints.users;
+  private endpointTask = environment.endpoints.tasks;
 
   constructor(private http: HttpClient,
               private utilsSvc: UtilsService) { }
@@ -20,14 +21,13 @@ export class ApiService {
 
   /*TODO: USUARIOS */
   createUser(user: User) {
-    const url = `${this.apiUrl}/${this.endpoint}/register`;
+    const url = `${this.apiUrl}/${this.endpointUser}/register`;
     const headers = new HttpHeaders().set('x-tenant-id', '65a08d5f8dbd709da49b2fdb');
     const body = {
       name: user.name,
       email: user.email,
       password: user.password
     };
-
     const request = this.http.post(url, body, { headers });
     return request.pipe(
       tap((response: any) => {
@@ -37,7 +37,7 @@ export class ApiService {
   }
 
   loginUser(email: string, password: string) {
-    const url = `${this.apiUrl}/${this.endpoint}/login`;
+    const url = `${this.apiUrl}/${this.endpointUser}/login`;
     const headers = new HttpHeaders().set('x-tenant-id', '65a08d5f8dbd709da49b2fdb');
     const body = {
       email,
@@ -46,13 +46,14 @@ export class ApiService {
     const request = this.http.post(url, body, { headers });
     return request.pipe(
       tap((response: any) => {
+        this.utilsSvc.saveInLocalStorage('user-token', response.token)
         this.utilsSvc.saveInLocalStorage('user', response.user);
       })
     );
   }
 
   updateUser() {
-    const url = `${this.apiUrl}/${this.endpoint}/login`;
+    const url = `${this.apiUrl}/${this.endpointUser}/login`;
     const headers = new HttpHeaders().set('x-tenant-id', '65a08d5f8dbd709da49b2fdb');
     const body = {
       
@@ -69,8 +70,13 @@ export class ApiService {
 
   /*TODO: TASK */
   createTask(task: Task) { 
-    const url = `${this.apiUrl}/${this.endpoint}/createTask`;
-    const headers = new HttpHeaders().set('x-tenant-id', '65a08d5f8dbd709da49b2fdb');
+    const token = this.utilsSvc.getFromLocalStorage('user-token');
+    
+    const url = `${this.apiUrl}/${this.endpointTask}/`;
+    const headers = new HttpHeaders()
+      .set('x-tenant-id', '65a08d5f8dbd709da49b2fdb')
+      .set('Authorization', token);
+
     const body = {
       title: task.title,
       description: task.description,
@@ -86,7 +92,7 @@ export class ApiService {
 
 
   updateTask(task: Task) {
-    const url = `${this.apiUrl}/${this.endpoint}/createTask`;
+    const url = `${this.apiUrl}/${this.endpointTask}/createTask`;
     const headers = new HttpHeaders().set('x-tenant-id', '65a08d5f8dbd709da49b2fdb');
     const body = {
       title: task.title,
@@ -102,7 +108,7 @@ export class ApiService {
   }
 
   getTask(task: Task) {
-    const url = `${this.apiUrl}/${this.endpoint}/getAllTask`;
+    const url = `${this.apiUrl}/${this.endpointTask}/getAllTask`;
     const headers = new HttpHeaders().set('x-tenant-id', '65a08d5f8dbd709da49b2fdb');
 
     const request = this.http.get(url, { headers });

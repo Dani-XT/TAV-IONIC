@@ -32,7 +32,7 @@ export class AuthPage implements OnInit {
       .subscribe(
         response => {
           this.utilsSvc.routerLink('/main/home');
-          console.log('User autenthicated successfully:', response);
+          console.log('User autenthicated successfully');
         },
         error => {
           if (user.email === email && user.password === password) {

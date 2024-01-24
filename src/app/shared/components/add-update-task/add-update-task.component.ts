@@ -66,8 +66,8 @@ export class AddUpdateTaskComponent  implements OnInit {
             icon: 'checkmark-circle-outline',
             duration: 1500
           });
-
-          this.utilsSvc.dismissLoading
+          console.log("response");
+          this.utilsSvc.dismissLoading();
         },
         error => {
           console.log(error);
@@ -77,19 +77,11 @@ export class AddUpdateTaskComponent  implements OnInit {
             icon: 'alert-circle-outline',
             duration: 1500
           });
+          console.log("error");
           this.utilsSvc.dismissLoading();
         }
       )
-    } else {
-      console.error('Form is invalid');
-      this.utilsSvc.presentToast({
-        message: "Formulario invalido",
-        duration: 1500,
-        color: "warning",
-        position: "bottom",
-        icon: "checkmark-circle-outline"
-      });
-  }
+    }
 }
 
   updateTask(){
@@ -108,8 +100,8 @@ export class AddUpdateTaskComponent  implements OnInit {
             icon: 'checkmark-circle-outline',
             duration: 1500
           });
-
-          this.utilsSvc.dismissLoading
+          console.log("response")
+          this.utilsSvc.dismissLoading();
         },
         error => {
           console.log(error);
@@ -119,18 +111,10 @@ export class AddUpdateTaskComponent  implements OnInit {
             icon: 'alert-circle-outline',
             duration: 1500
           });
+          console.log("error")
           this.utilsSvc.dismissLoading();
         }
       )
-    } else {
-      console.error('Form is invalid');
-      this.utilsSvc.presentToast({
-        message: "Formulario invalido",
-        duration: 1500,
-        color: "warning",
-        position: "bottom",
-        icon: "checkmark-circle-outline"
-      });
     }
   }
 
