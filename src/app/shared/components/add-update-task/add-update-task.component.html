@@ -13,8 +13,16 @@
     <div *ngIf="form.controls.description.errors?.['minlength']">Este campo requiere al menos 4 caracteres</div>
   </div> -->
   
-  
+  <ion-list>
+    
+    <ion-item>
+      <ion-select label="Estado de la tarea" [formControl]="form.controls.state">
+        <ion-select-option *ngFor="let state of taskState ">{{state}}</ion-select-option>
+        
+      </ion-select>
+    </ion-item>
 
+  </ion-list>
   
 
   <!-- TODO: ACTIVIDADES -->
@@ -28,8 +36,10 @@
       <ion-icon name="add-circle-outline"></ion-icon>
     </ion-button>
   </ion-item>
+
   
-  <ion-range [value]="getPercentage()"></ion-range>
+  
+  <ion-range class="ion-range" [value]="getPercentage()"></ion-range>
   
     <ion-reorder-group [disabled]="false" (ionItemReorder)="handleReorder($any($event))">
       <div *ngFor="let activities of form.value.activities; index as i">

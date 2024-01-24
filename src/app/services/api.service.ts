@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 import { UtilsService } from './utils.service';
 import { User } from '../models/user.model';
 import { Task } from '../models/task.model';
@@ -126,8 +126,7 @@ export class ApiService {
       description: task.description,
       completed: task.completed,
       state: task.state,
-      activities: task.activities,
-      owner: task.owner,
+      activities: task.activities
     };
 
     const request = this.http.post(url, body, { headers });

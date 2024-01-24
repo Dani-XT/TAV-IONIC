@@ -14,12 +14,15 @@ import { ItemReorderEventDetail } from '@ionic/angular';
 export class AddUpdateTaskComponent  implements OnInit {
 
   @Input() task: Task;
+  taskState = ['Pendiente', 'En progreso', 'Terminado'];
   
 
   form = new FormGroup({
     _id: new FormControl(''),
-    title: new FormControl(''),
-    description: new FormControl(''),
+    title: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.required]),
+    completed: new FormControl(false),
+    state: new FormControl('', [Validators.required]),
     activities: new FormControl([]),
   })
 
@@ -46,7 +49,7 @@ export class AddUpdateTaskComponent  implements OnInit {
   }
 
   createTask(){
-
+    
     this.utilsSvc.presentLoading();
     delete this.form.value._id;
 
