@@ -20,6 +20,7 @@ export class UpdateDelUserComponent  implements OnInit {
     name: new FormControl(''),
     email: new FormControl(''),
     password: new FormControl(''),
+    tenant_id: new FormControl(''),
   })
 
 
@@ -55,32 +56,68 @@ export class UpdateDelUserComponent  implements OnInit {
             icon: 'checkmark-circle-outline',
             duration: 1500
           });
-          console.log("response")
           this.utilsSvc.dismissLoading();
         },
         error => {
-          console.log(error);
+          console.log("Error al modificar usuario",error);
           this.utilsSvc.presentToast({
             message: 'Error al modificar usuario',
             color: 'danger',
             icon: 'alert-circle-outline',
             duration: 1500
           });
-          console.log("error")
           this.utilsSvc.dismissLoading();
         }
       )
     }
   }
 
-  deleteUser(user: User) {
+  async deleteUser(user: User) {
     this.utilsSvc.presentLoading();
     this.apiSvc.deleteUser()
     .subscribe(
       response => {
-
+        console.log(response);
+        this.utilsSvc.presentToast({
+          message: 'Usuario eliminado exitosamente',
+          color: 'danger',
+          icon: 'checkmark-circle-outline',
+          duration: 1500
+        })
+        this.utilsSvc.removeFromLocalStorage('user');
+        this.utilsSvc.removeFromLocalStorage('user-token');
+        this.utilsSvc.routerLink('/auth');
+        this.utilsSvc.dismissLoading();
+      },
+      error => {
+        console.log('Error al eliminar usuario:',error);
+        this.utilsSvc.presentToast({
+          message: 'Error al eliminar usuario',
+          color: 'warning',
+          icon: 'alert-circle-outline',
+          duration: 5000
+        });
+        this.utilsSvc.dismissLoading();
       }
     )
+  }
+
+  confirmDeleteUser(user: User) {
+    this.utilsSvc.presentAlert({
+      header: 'Eliminar tarea',
+      message: '¿Quieres eliminar esta tarea?',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+        }, {
+          text: 'Si, eliminar',
+          handler: () => {
+            this.deleteUser(user);
+          }
+        }]
+      });
   }
 
 }

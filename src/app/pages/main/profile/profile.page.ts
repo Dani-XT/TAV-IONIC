@@ -24,8 +24,6 @@ export class ProfilePage implements OnInit {
 
   ionViewWillEnter() {
     this.getUser();
-    console.log("dentro del ionViewWillEnter");
-    console.log(this.user);
   }
 
   
@@ -45,13 +43,9 @@ export class ProfilePage implements OnInit {
   getUser() {
     let sub = this.apiSvc.getUser()
     .subscribe({
-      next: (response: User) => {
-        console.log("dentro del getUser")  
+      next: (response: User) => { 
         console.log(response);
         this.user = response;
-          
-        console.log(this.user);
-        console.log(response)
         sub.unsubscribe();
       }
     })

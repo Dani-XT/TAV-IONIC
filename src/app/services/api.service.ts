@@ -96,6 +96,7 @@ export class ApiService {
     // await this.auth.signOut();
     this.utilsSvc.routerLink('/auth');
     this.utilsSvc.removeFromLocalStorage('user');
+    this.utilsSvc.removeFromLocalStorage('user-token')
   }
 
 

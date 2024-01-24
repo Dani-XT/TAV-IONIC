@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ApiService } from '../services/api.service';
+import { AuthService } from '../services/auth.service';
 import { UtilsService } from '../services/utils.service';
 
 @Injectable({
@@ -9,19 +9,23 @@ import { UtilsService } from '../services/utils.service';
 })
 export class AuthGuard implements CanActivate {
   
-  apiSvc = inject(ApiService);
+  authSvc = inject(AuthService);
   utilsSvc = inject(UtilsService);
-  
+
+
   
   
   
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      
-      console.log("hola")
-      
-      return true;
+      let auth = this.authSvc.isAuthenticated();
+      if (auth) {
+        return true;
+      } else {
+        this.utilsSvc.routerLink('/auth');
+        return false;
+      }
   }
   
 }
