@@ -29,7 +29,7 @@ export class AddUpdateTaskComponent  implements OnInit {
   apiService = inject(ApiService);
 
   ngOnInit() {
-    // this.user = this.utilsSvc.getFromLocalStorage('user');
+    this.user = this.utilsSvc.getFromLocalStorage('user')
 
     if(this.task){
       this.form.setValue(this.task);
@@ -38,7 +38,6 @@ export class AddUpdateTaskComponent  implements OnInit {
   }
 
   submit() {
-    console.log(this.form.value.activities)
     if(this.form.valid){
       if(this.task){
         this.updateTask();
@@ -46,8 +45,6 @@ export class AddUpdateTaskComponent  implements OnInit {
         this.createTask();
       }
     }
-
-    
   }
 
   createTask(){
@@ -66,18 +63,16 @@ export class AddUpdateTaskComponent  implements OnInit {
             icon: 'checkmark-circle-outline',
             duration: 1500
           });
-          console.log("response");
           this.utilsSvc.dismissLoading();
         },
         error => {
-          console.log(error);
+          console.log('Error al crear tarea', error);
           this.utilsSvc.presentToast({
             message: 'Error al crear tarea',
             color: 'danger',
             icon: 'alert-circle-outline',
             duration: 1500
           });
-          console.log("error");
           this.utilsSvc.dismissLoading();
         }
       )
@@ -89,8 +84,12 @@ export class AddUpdateTaskComponent  implements OnInit {
     this.utilsSvc.presentLoading();
     delete this.form.value._id;
 
+
+
     if(this.form.valid) {
-      this.apiService.updateTask(this.form.value as Task)
+
+      let taskId = this.task._id;
+      this.apiService.updateTask(this.form.value as Task, taskId)
       .subscribe(
         response => {
           this.utilsSvc.dismissModal({succes: true});

@@ -69,6 +69,18 @@ export class ApiService {
 
 
   /*TODO: TASK */
+  getTask() {
+    const token = this.utilsSvc.getFromLocalStorage('user-token');
+
+    const url = `${this.apiUrl}/${this.endpointTask}/`;
+    const headers = new HttpHeaders()
+      .set('x-tenant-id', '65a08d5f8dbd709da49b2fdb')
+      .set('Authorization', token);
+
+    const request = this.http.get(url, { headers });
+    return request;
+  }
+
   createTask(task: Task) { 
     const token = this.utilsSvc.getFromLocalStorage('user-token');
     
@@ -91,9 +103,13 @@ export class ApiService {
   }
 
 
-  updateTask(task: Task) {
-    const url = `${this.apiUrl}/${this.endpointTask}/createTask`;
-    const headers = new HttpHeaders().set('x-tenant-id', '65a08d5f8dbd709da49b2fdb');
+  updateTask(task: Task, taskId: string) {
+    const token = this.utilsSvc.getFromLocalStorage('user-token');
+    console.log(task._id);
+    const url = `${this.apiUrl}/${this.endpointTask}/${taskId}`;
+    const headers = new HttpHeaders()
+      .set('x-tenant-id', '65a08d5f8dbd709da49b2fdb')
+      .set('Authorization', token);
     const body = {
       title: task.title,
       description: task.description,
@@ -103,19 +119,21 @@ export class ApiService {
       owner: task.owner,
     };
 
-    const request = this.http.post(url, body, { headers });
+    const request = this.http.patch(url, body, { headers });
     return request;
   }
 
-  getTask(task: Task) {
-    const url = `${this.apiUrl}/${this.endpointTask}/getAllTask`;
-    const headers = new HttpHeaders().set('x-tenant-id', '65a08d5f8dbd709da49b2fdb');
+  deleteTask(taskId: string) {
+    const token = this.utilsSvc.getFromLocalStorage('user-token');
+    
+    const url = `${this.apiUrl}/${this.endpointTask}/${taskId}`;
+    const headers = new HttpHeaders()
+      .set('x-tenant-id', '65a08d5f8dbd709da49b2fdb')
+      .set('Authorization', token);
 
-    const request = this.http.get(url, { headers });
+    const request = this.http.delete(url, { headers })
     return request;
   }
-
-
 
 }
 

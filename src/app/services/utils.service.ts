@@ -38,7 +38,7 @@ export class UtilsService {
 
   async presentModal(opts: ModalOptions){
     const modal = await this.modalCtrl.create(opts);
-    modal.present();
+    await modal.present();
     const { data } = await modal.onWillDismiss();
     if(data) return data;
   }
