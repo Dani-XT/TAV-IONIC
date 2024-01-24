@@ -12,6 +12,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 export class ProfilePage implements OnInit {
 
   user : User[] = [];
+  loading: boolean = false;
 
   apiSvc = inject(ApiService);
   utilsSvc = inject(UtilsService);
@@ -19,6 +20,7 @@ export class ProfilePage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.getUser();
   }
 
   ionViewWillEnter() {
@@ -40,28 +42,17 @@ export class ProfilePage implements OnInit {
   }
 
   getUser() {
+    this.loading = true;
     let sub = this.apiSvc.getUser()
     .subscribe({
       next: (response: User[]) => {
           console.log(response);
           this.user = response;
           sub.unsubscribe();
+          this.loading = false;
       }
-    })
+    });
   }
-
-  deleteUser(user: User) {
-    this.utilsSvc.presentLoading();
-    this.apiSvc.deleteUser()
-    .subscribe(
-      response => {
-
-      }
-    )
-  }
-
-
-
 
   signOut() {
     this.utilsSvc.presentAlert ({

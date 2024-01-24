@@ -57,7 +57,7 @@ export class HomePage implements OnInit {
           this.tasks = response;
           sub.unsubscribe();
           this.loading = false;
-      }
+        }
     });
   }
 
