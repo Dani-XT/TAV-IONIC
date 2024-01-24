@@ -11,7 +11,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class ProfilePage implements OnInit {
 
-  user : User[] = [];
+  user : User;
 
   apiSvc = inject(ApiService);
   utilsSvc = inject(UtilsService);
@@ -23,6 +23,8 @@ export class ProfilePage implements OnInit {
 
   ionViewWillEnter() {
     this.getUser();
+    console.log("dentro del ionViewWillEnter");
+    console.log(this.user);
   }
 
   
@@ -42,25 +44,17 @@ export class ProfilePage implements OnInit {
   getUser() {
     let sub = this.apiSvc.getUser()
     .subscribe({
-      next: (response: User[]) => {
-          console.log(response);
-          this.user = response;
-          sub.unsubscribe();
+      next: (response: User) => {
+        console.log("dentro del getUser")  
+        console.log(response);
+        this.user = response;
+          
+        console.log(this.user);
+        console.log(response)
+        sub.unsubscribe();
       }
     })
   }
-
-  deleteUser(user: User) {
-    this.utilsSvc.presentLoading();
-    this.apiSvc.deleteUser()
-    .subscribe(
-      response => {
-
-      }
-    )
-  }
-
-
 
 
   signOut() {

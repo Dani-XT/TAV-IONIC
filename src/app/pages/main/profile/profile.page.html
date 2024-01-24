@@ -1,11 +1,19 @@
 <app-header subtitle="A D M I N"></app-header>
 
 <ion-content>
-    <div class="content ion-text-center">
+    <div class="content ion-text-center" *ngIf="user">
   
         <ion-icon class="avatar" name="person-circle-outline"></ion-icon>
-        <h2>{{userTemp.name}}</h2>
-        <div>{{userTemp.email}}</div>
+        <h2>{{user.name}}</h2>
+        <div>{{user.email}}</div>
+    
+    </div>
+
+    <div class="content ion-text-center" *ngIf="!user">
+  
+        <ion-icon class="avatar" name="person-circle-outline"></ion-icon>
+        <h2>Nombre de usuario</h2>
+        <div>Correo de usuario</div>
     
     </div>
 
@@ -14,7 +22,7 @@
         <ion-icon slot="end" name="log-out-outline"></ion-icon>
     </ion-button>
 
-    <ion-button (click)="updateOrDelUser(userTemp)" shape="round">
+    <ion-button (click)="updateOrDelUser(user)" shape="round">
         Modificar
         <ion-icon slot="end" name="log-out-outline"></ion-icon>
     </ion-button>
